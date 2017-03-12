@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="null"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>mongodb安装、配置及操作命令 | wangleah</title><link rel="stylesheet" type="text/css" href="//fonts.css.network/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.3.0"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=1.3.0"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">mongodb安装、配置及操作命令</h1><a id="logo" href="/.">wangleah</a><p class="description">不要因为别人的光芒，而忘了自己想走的路!</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 文档列表</i></a><a href="https://github.com/wangleah"><i class="fa fa-user"> github</i></a></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">mongodb安装、配置及操作命令</h1><div class="post-meta">Mar 10, 2017</div><div class="post-content"><p>为了更好的学习 MongoDB 数据库，大家可以参考菜鸟教程上的 MongoDB 数据库教程文档，<br>链接地址：<a href="http://www.runoob.com/mongodb/mongodb-tutorial.html" target="_blank" rel="external">http://www.runoob.com/mongodb/mongodb-tutorial.html</a></p>
+<p>mongodb数据库官网：<a href="https://www.mongodb.com/" target="_blank" rel="external">https://www.mongodb.com/</a></p>
+<h4 id="第一步-安装步骤"><a href="#第一步-安装步骤" class="headerlink" title="第一步 安装步骤"></a>第一步 安装步骤</h4><p>1.先进入网址，点击”download” （网址：<a href="https://www.mongodb.com/）" target="_blank" rel="external">https://www.mongodb.com/）</a></p>
+<p><img src="/images/01.png" alt="01"><br><a id="more"></a></p>
+<p>2.点击进行下载，下载zip或者version里面的(安装在C盘或者D盘，最好是安装路径是默认的)</p>
+<p><img src="/images/02.png" alt="02"></p>
+<p>3.检验是不是安装成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">在cmd终端中输入： mongo --version 或是 mongod --version ,能看到版本好,说明安装成功</div></pre></td></tr></table></figure>
+<h4 id="第二步-MongoDB配置启动服务器"><a href="#第二步-MongoDB配置启动服务器" class="headerlink" title="第二步 MongoDB配置启动服务器"></a>第二步 MongoDB配置启动服务器</h4><p>1、创建数据目录</p>
+<ul>
+<li><p>将数据目录放在根目录下(如：c:\或者D:\等)，数据目录的命名随意，最好叫 data;</p>
+</li>
+<li><p>在data文件中建立文件夹  db和log</p>
+<p><img src="/images/03.png" alt="03"></p>
+</li>
+<li><p>然后启动执行<code>mongod.exe --dbpath c:\data</code>  如果启动成功就ok了</p>
+</li>
+</ul>
+<p>2、配置全局启动mongodb（开机直接启动）</p>
+<ul>
+<li><p>首先在<code>data/log文件夹</code>下建立<code>mongodb.log</code>文件</p>
+</li>
+<li><p>然后打开cmd终端输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongod.exe --bind_ip 127.0.0.1 --logpath &quot;C:/data/log/mongodb.log&quot; --logappend --dbpath &quot;c:/datas&quot; --port 27017 --serviceName &quot;MongoDBServer&quot; --serviceDisplayName &quot;MongoDBServerDisplayName&quot; --install</div></pre></td></tr></table></figure>
+</li>
+<li><p>然后重新打开cmd终端 输入<code>services.msc</code> 可以看到服务界面，启动服务即可</p>
+<p><img src="/images/04.png" alt="04"></p>
+</li>
+<li><p>然后这样电脑就自动开启了mongod服务</p>
+</li>
+</ul>
+<p>3、启动连接mongodb服务器</p>
+<ul>
+<li><p><code>在终端输入 mongo 或者  mongo --host 127.0.0.1 --port 27017</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">如果看到类似于如下的字样说明连接成功：</div><div class="line">	</div><div class="line">	MongoDB shell version v3.4.2</div><div class="line">	connecting to: mongodb://127.0.0.1:27017</div><div class="line">	MongoDB server version: 3.4.2</div><div class="line">	Server has startup warnings:</div><div class="line">	2017-01-18T18:49:53.865+0800 I CONTROL  [initandlisten]</div><div class="line">	2017-01-18T18:49:53.865+0800 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.</div><div class="line">	2017-01-18T18:49:53.866+0800 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.</div><div class="line">	2017-01-18T18:49:53.866+0800 I CONTROL  [initandlisten]</div><div class="line">	&gt;</div></pre></td></tr></table></figure>
+<hr>
+</li>
+</ul>
+<h3 id="基本操作命令"><a href="#基本操作命令" class="headerlink" title="基本操作命令"></a>基本操作命令</h3><p>也可以使用图形化界面<code>robomongo</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">可以参考:</div><div class="line">	http://www.yiibai.com/mongodb/mongodb_create_collection.html</div><div class="line">	</div><div class="line">	http://www.runoob.com/mongodb/mongodb-tutorial.html</div></pre></td></tr></table></figure></p>
+<ul>
+<li><p><code>show dbs</code></p>
+<ul>
+<li>查看当前服务实例上所有的数据库</li>
+</ul>
+</li>
+<li><p><code>use 数据库名称</code></p>
+<ul>
+<li>如果数据库不存在，则创建数据库，否则切换到指定数据库。</li>
+</ul>
+</li>
+<li><p><code>db.dropDatabase()</code></p>
+<ul>
+<li>删除数据库,注意,要在切换的数据库中删除</li>
+</ul>
+</li>
+<li><p><code>db</code></p>
+<ul>
+<li>查看当前所处的数据库</li>
+</ul>
+</li>
+<li><p><code>show collections</code></p>
+<ul>
+<li>查看当前数据库中所有的集合</li>
+</ul>
+</li>
+<li><p><code>db.createCollection(&quot;集合名称&quot;)</code></p>
+<ul>
+<li>创建集合</li>
+</ul>
+</li>
+<li><p><code>db.集合名称.drop()</code></p>
+<ul>
+<li>删除集合</li>
+</ul>
+</li>
+<li><p><code>db.集合名称.insert({数据文档})</code></p>
+<ul>
+<li>插入的每一条文档会自动帮我们生成一个<code>_id</code>字段,它是mongodb自动维护的,不需要我们关心</li>
+</ul>
+</li>
+<li><p><code>db.集合名称.find()</code></p>
+<ul>
+<li>查询指定集合中所有的数据</li>
+<li>可以通过 <code>db.集合名称.find().pretty()</code> 美化输出格式</li>
+<li>默认是查询所有，可以通过：<code>db.集合名称.find({查询条件})</code> 按条件查询集合中的数据</li>
+<li>模糊查询的条件 {要查询的字段:{$regex: ‘关键字’}}</li>
+</ul>
+</li>
+<li><p><code>db.集合名称.update({更新条件}, {要更新的字段})</code></p>
+<ul>
+<li>更新指定集合数据,注意点,要更新的字段一定要这样写 {$set:{字段的名称:字段的值}},</li>
+</ul>
+</li>
+<li><p><code>db.集合名称.remove({删除条件})</code></p>
+<ul>
+<li>删除指定集合中的数据</li>
+</ul>
+</li>
+<li><p><code>exit</code> 退出当前操作</p>
+</li>
+<li><p><code>cls</code> 清屏</p>
+<p>注意点:更新和删除时一般都需要带条件,除非是全部更新与全部删除,不过全部更新与全部删除这样很危险,实际操作过程中很少</p>
+</li>
+</ul>
+</div><div class="tags"></div><div class="post-nav"><a href="/2016/08/12/前端工具/自动化构建工具Gulp初体验/" class="next">自动化构建工具Gulp初体验</a></div><div id="comments"></div></div></div></div><div class="layout-r hidden_mid_and_down"><div id="sidebar"><div class="widget"><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="请输入关键字..."/></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-fei"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/03/10/前端工具/mongodb安装及相关配置/">mongodb安装、配置及操作命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/12/前端工具/自动化构建工具Gulp初体验/">自动化构建工具Gulp初体验</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/12/前端工具/gulp指南/">gulp指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/06/18/css/Flex布局新旧混合写法详解（兼容微信）/">Flex布局新旧混合写法</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/10/javascript/深入浅出妙用 Javascript 中 apply、call、bind/">Javascript 中 apply、call、bind</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/03/20/css/七种CSS方式让一个容器水平垂直居中/">七种CSS方式让一个容器水平垂直居中</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/02/05/javascript/JS中几种继承模型/">JS中几种继承模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/01/14/javascript/JS 原型与原型链详解/">JS 原型与原型链详解</a></li></ul></div></div></div></div><a id="totop" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.3.0" async></script><div id="footer"><div class="footer-info"><p><span> Copyright &copy;<a href="/." rel="nofollow">wangleah</a></span></p></div></div></div><script type="text/javascript" src="/js/search.json.js?v=1.3.0"></script></body></html>
