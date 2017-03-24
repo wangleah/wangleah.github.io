@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="null"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>三大系列——element元素结点属性 | wangleah</title><link rel="stylesheet" type="text/css" href="//fonts.css.network/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.3.0"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=1.3.0"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">三大系列——element元素结点属性</h1><a id="logo" href="/.">wangleah</a><p class="description">不要因为别人的光芒，而忘了自己想走的路!</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 文档列表</i></a><a href="https://github.com/wangleah"><i class="fa fa-user"> github</i></a></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">三大系列——element元素结点属性</h1><div class="post-meta">Apr 15, 2016</div><div class="post-content"><p>之前看过这样的文章，总结不全，三大系列相当重要，结合文章加自己的理解整理了整理</p>
+<p><a href="http://www.cnblogs.com/BlogofOldK/p/5287127.html" target="_blank" rel="external">区别client、offset、scroll系列以及event的几个距离属性</a></p>
+<h3 id="offset系列"><a href="#offset系列" class="headerlink" title="offset系列"></a>offset系列</h3><h4 id="offsetWidth-和offsetHeight"><a href="#offsetWidth-和offsetHeight" class="headerlink" title="offsetWidth 和offsetHeight"></a>offsetWidth 和offsetHeight</h4><p>element.offsetWidth是一个只读属性，它包括了：css width + padding+border+垂直滚动条宽度</p>
+<p>这里的滚动条就是单纯滚动条的意思，不包括不可见的部分哦。 </p>
+<p>而element.offsetHeight与之类似，只是改为垂直方向而已。</p>
+<h4 id="offsetParent"><a href="#offsetParent" class="headerlink" title="offsetParent"></a>offsetParent</h4><p>element.offsetParent是一个只读属性，返回一个对象的引用，这个引用指向了element（调用offsetParent）的最近一个使用了定位（absolute、relative）的父元素，如果没有定位了的父元素，则指向根元素（标准模式下为 html；quirks 模式下为 body）。 </p>
+<p>兼容性：</p>
+<p>在 Webkit 中，如果元素为隐藏的（该元素或其祖先元素的 style.display 为 “none”），或者该元素的 style.position 被设为 “fixed”，则该属性返回 null。 </p>
+<p>在 IE 9 中，如果该元素的 style.position 被设置为 “fixed”，则该属性返回 null。（display:none 无影响。）</p>
+<p>3.offsetTop和offsetLeft</p>
+<p>element.offsetTop 和 element.offsetLeft 都是相对于offsetParent的内边距（外）边界的。 </p>
+<p>也就是返回对象元素边界的左上角顶点相对于offsetParent的左上角顶点的水平偏移量。这里，元素对象左上角顶点是要从border开始算（如果有的话，即border边界距离offsetParent padding边界的距离，不是从从元素的margin开始算），offsetParent的左上角是指其padding边界。</p>
+<p>参考资料： </p>
+<p><a href="http://www.cnblogs.com/jscode/archive/2012/09/03/2669299.html" target="_blank" rel="external">前端攻城狮学习笔记九：让你彻底弄清offset</a> </p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLElement/offsetParent" target="_blank" rel="external">HTMLElement.offsetParent</a></p>
+<h3 id="client系列"><a href="#client系列" class="headerlink" title="client系列"></a>client系列</h3><h4 id="clientHeight和clientWidth"><a href="#clientHeight和clientWidth" class="headerlink" title="clientHeight和clientWidth"></a>clientHeight和clientWidth</h4><p>element.clientHeight表示元素可视区域的高度，包括可视区域中元素的   CSS height+padding</p>
+<p>不包括边框、滚动条、不可见部分、margin。 </p>
+<p>clientWidth类似，只不过是水平方向。</p>
+<h4 id="clientLeft和clientTop"><a href="#clientLeft和clientTop" class="headerlink" title="clientLeft和clientTop"></a>clientLeft和clientTop</h4><p>是元素 </p>
+<p>padding外边界与父元素的padding边界的距离-元素的offsetLeft值，就等于元素的左边框宽度。？？？不知道理解对没 </p>
+<p>clientTop与之类似。</p>
+<h3 id="scroll系列"><a href="#scroll系列" class="headerlink" title="scroll系列"></a>scroll系列</h3><h4 id="scrollHeight和scrollWidth"><a href="#scrollHeight和scrollWidth" class="headerlink" title="scrollHeight和scrollWidth"></a>scrollHeight和scrollWidth</h4><p>element.scrollHeight属性是只读的，它包括：</p>
+<p>可见CSS高度+padding+border+由于overflow设置为隐藏或者scroll而不可见的内容高度。</p>
+<p>可看出和offsetHeight的区别就是多了个不可见内容区高度。scrollWidth与之类似。</p>
+<h4 id="scrollTop和scrollLeft"><a href="#scrollTop和scrollLeft" class="headerlink" title="scrollTop和scrollLeft"></a>scrollTop和scrollLeft</h4><p>即是被scroll了的内容区域的高度和宽度，隐藏不可见的内容区域。</p>
+<p>注意： </p>
+<p>元素设置了overflow: scroll，滚动条是占据了元素原来CSS宽度的一部分，即加了滚动条后，元素CSS中定义的属性width=滚动条宽度+content 宽度。边框是加在滚动条外面的，而padding则是加在滚动条内部，内容区之外的。</p>
+<p>一个盒子设置了margin-top，是和别的盒子间的垂直距离，这个别的盒子不包括父盒子，也就是说，内部盒子顶部和父盒子边界的距离不变，而是整个父盒子顶部都和更外部的环境相距了margin-top值的距离。</p>
+<p>参考资料： </p>
+<p>Mozilla文档上的图示描述得很明白 </p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollHeight" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollHeight</a></p>
+<p>event事件对象属性</p>
+<p>下面几个是event事件对象的属性，可获取鼠标的位置：</p>
+<p>1.clientX，clientY </p>
+<p>表示鼠标位置距离可视窗口边缘的距离。它们是事件对象的属性。这2个属性不是标准属性，但得到了广泛支持。IE事件中没有这2个属性。</p>
+<p>2.pageX，pageY </p>
+<p>表示鼠标位置距离整个文档页面边缘（左和上边缘）的距离</p>
+<p>3.screenX，screenY </p>
+<p>表示鼠标位置距离屏幕边缘的距离</p>
+<p>4.offsetX，offsetY： </p>
+<p>鼠标相对于事件源元素（srcElement）的X,Y坐标，只有IE事件有这2个属性，标准事件没有对应的属性。</p>
+<p>来看个小例子，跟随鼠标的提示框：</p>
+<p>//css</p>
+<p>#info {position:absolute;}</p>
+<p>//html</p>
+<div id="info"></div>
+
+<p>//js</p>
+<p>document.onmousemove=function(ev){</p>
+<p>   var oEvent=ev||event;</p>
+<p>   var info=document.getElementById(‘info’);</p>
+<p>   //获取不可见内容高度</p>
+<p>   var scrollTop=document.documentElement.scrollTop||</p>
+<p>   document.body.scrollTop//???混杂模式和标准模式下都能工作？</p>
+<p>   info.style.left=oEvent.clientX+’px’;</p>
+<p>   info.style.top=oEvent.clientY+scrollTop+’px’;  //可视区高度+scrolled的高度</p>
+<p>}</p>
+<p>document.documentElement指向document对象的根元素，在html文档中就是html元素。</p>
+<p>经验：只要在用到clientX和clientY的地方都最好加上scroll值。</p>
+<h3 id="scroll"><a href="#scroll" class="headerlink" title="scroll"></a>scroll</h3><ol>
+<li>获取元素内容的大小和位置  滚动条滚动距离</li>
+<li>层中设置文字内容,然后获取层的scrollHeight</li>
+<li>设置层中的overflow:auto 查看scrollTop</li>
+</ol>
+<h2 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h2><p>1.scrollTop : 滚动条滚动距离</p>
+<ol>
+<li><ol>
+<li><p>说明：chrome下他会以为滚动条是文档元素的，所以需要做兼容</p>
+<pre><code>var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+</code></pre></li>
+</ol>
+</li>
+<li><p>scrollHeight     返回整个元素的高度+padding（包括子元素把父元素撑开隐蔽的地方）     </p>
+</li>
+<li><ol>
+<li>说明:scrollHeight问题比较大</li>
+</ol>
+</li>
+</ol>
+<p>1、当子元素的高度大于父元素高度：标准浏览器下包含子元素样式高+padding+margin+border+父    元素padding-top的值，ie7以下包含子元素样式高+padding+margin+border+父元素padding-top和padding-bottom</p>
+<p>2、当子元素的高度小于父元素高度：标准浏览器下包含父元素样式高+padding，ie7以下只计算子元素的高度+父元素的padding</p>
+<p>二、pageX和pageY</p>
+<ol>
+<li><p>e.clientX和e.clientY是可视区域的坐标</p>
+</li>
+<li><p>e.pageX和e.pageY才是真正的文档的坐标</p>
+</li>
+<li><p>兼容的写法是: </p>
+</li>
+<li><p>​    e.client+document.body.scrollTop==e.pageY</p>
+</li>
+</ol>
+</div><div class="tags"></div><div class="post-nav"><a href="/2016/05/12/前端工具/gulp指南/" class="pre">gulp指南</a><a href="/2015/06/18/css/Flex布局新旧混合写法详解（兼容微信）/" class="next">Flex布局新旧混合写法</a></div><div id="comments"></div></div></div></div><div class="layout-r hidden_mid_and_down"><div id="sidebar"><div class="widget"><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="请输入关键字..."/></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-fei"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/03/10/前端工具/mongodb安装及相关配置/">mongodb安装、配置及操作命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/12/前端工具/自动化构建工具Gulp初体验/">自动化构建工具Gulp初体验</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/12/前端工具/gulp指南/">gulp指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/15/javascript/三大系列——element元素结点属性/">三大系列——element元素结点属性</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/06/18/css/Flex布局新旧混合写法详解（兼容微信）/">Flex布局新旧混合写法</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/10/javascript/深入浅出妙用 Javascript 中 apply、call、bind/">Javascript 中 apply、call、bind</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/03/20/css/七种CSS方式让一个容器水平垂直居中/">七种CSS方式让一个容器水平垂直居中</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/02/05/javascript/JS中几种继承模型/">JS中几种继承模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/01/14/javascript/JS 原型与原型链详解/">JS 原型与原型链详解</a></li></ul></div></div></div></div><a id="totop" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.3.0" async></script><div id="footer"><div class="footer-info"><p><span> Copyright &copy;<a href="/." rel="nofollow">wangleah</a></span></p></div></div></div><script type="text/javascript" src="/js/search.json.js?v=1.3.0"></script></body></html>
